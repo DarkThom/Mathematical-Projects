@@ -3,10 +3,13 @@
 
 ./102cipher message key flag
 ----------------------------------------
-
-messsage   a message, made of ASCII characters
-key        the encryption key, made of ASCII characters
-flag       0 for the message to be encrypted, 1 to be decrypted
+------------------------------------------------------------------------
+| messsage |    | a message, made of ASCII characters                  |
+------------------------------------------------------------------------
+| key      |    | the encryption key, made of ASCII characters         |
+------------------------------------------------------------------------
+| flag     |    | 0 for the message to be encrypted, 1 to be decrypted |
+------------------------------------------------------------------------
 
 Cryptography is a very old science, whose goal is to secure communication, so
 that only its recipient could read it.
