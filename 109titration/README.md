@@ -11,5 +11,5 @@ To dertermine the concentration of this additive in a solution, one can realize 
 soda is progressivly added to the solution, and pH is then read.  
 
 There are two main approaches to do so :
-- 1.  the derivative method
-- 2.  the parallel tangents method
+-  the derivative method
+-  the parallel tangents method
