@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+# coding=UTF-8
+
+from sys import argv
+from core import eprint
+
+import core
+import os
+
+def display_help():
+	""" Help output printer """
+	print("""USAGE
+	./201yams d1 d2 d3 d4 d5 c
+
+DESCRIPTION
+	d1	value of the first die (0 if not thrown)
+	d2	value of the second die (0 if not thrown)
+	d3	value of the third die (0 if not thrown)
+	d4	value of the fourth die (0 if not thrown)
+	d5	value of the fifth die (0 if not thrown)
+	c	expected combination""")
+
+
+
+def main():
+	if len(argv) > 1:
+		if argv[1] == "-h":
+			display_help()
+			return 0
+		elif argv[1] in ["-t", "--tests"]:
+			return os.system("./tests.py -v")
+	if len(argv) != 7:
+		eprint("Bad number of argument")
+		exit(84)
+	dices = []
+	for idx, value in enumerate(argv):
+		if idx in [0, 6]:
+			continue
+		try:
+			value = int(value)
+			if value < 0 or value > 6:
+				raise
+			dices.append(value)
+		except:
+			eprint(str(value) + ": Not a possible dice value")
+			exit(84)
+	tab = argv[6].split("_")
+	for idx, t in enumerate(tab):
+		if idx == 0:
+			continue
+		try:
+			t = int(t)
+			if t <= 0 or t > 6:
+				raise
+			tab[idx] = t
+		except:
+			eprint(str(t) + ": Not a possible checking value")
+			exit(84)
+	if sum(dices):
+		for d in dices:
+			if d == 0:
+				eprint("You can't keep dices on a throw!")
+				exit(84)
+	func = getattr(core, "func_" + tab[0], None)
+	if func is None:
+		eprint(tab[0] + ": Unknown operation type")
+		exit(84)
+	proba, message = func(tab, dices)
+	if proba is None:
+		eprint(message)
+		exit(84)
+	proba *= 100
+	print("chances to get a {}: {:0.02f}%".format(message, proba))
+	return 0
+
+
+
+if __name__ == '__main__':
+	main()
