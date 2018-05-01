@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# coding=UTF-8
+
+from sys import argv
+from core import eprint, proba_tab, proba_line, esperanceY, esperanceX, esperanceZ, varianceX, varianceY, varianceZ
+
+import core
+import os
+
+def display_help():
+	""" Help output printer """
+	print("USAGE")
+	print("             ./202unsold a b")
+	print("\nDESCRIPTION")
+	print("             a\tconstant computed from the past results")
+	print("             b\tconstant computed from the past results")
+
+def main():
+	if len(argv) > 1:
+		if argv[1] == "-h":
+			display_help()
+			return 0
+		elif argv[1] in ["-t", "--tests"]:
+			return os.system("./tests.py -v")
+	if len(argv) != 3:
+		eprint("Bad number of argument")
+		exit(84)
+	try:
+		a = int(argv[1])
+		b = int(argv[2])
+	except:
+		eprint("You must use numbers")
+		exit(84)
+	if a <= 50 or b <= 50:
+		eprint("Computed constants must be greater than 50")
+		exit(84)
+	first_tab, last_line, last_col = proba_tab(a, b)
+	second_tab = proba_line(first_tab)
+	eX = esperanceX(last_line)
+	varianceX(last_line, eX)
+	eY = esperanceY(last_col)
+	varianceY(last_col, eY)
+	eZ = esperanceZ(second_tab)
+	varianceZ(second_tab, eZ)
+	return 0
+
+
+if __name__ == '__main__':
+	main()

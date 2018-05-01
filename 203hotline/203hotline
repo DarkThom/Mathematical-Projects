@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+# coding=UTF-8
+
+from sys import argv
+
+from core import eprint, nCr, binomial, poisson
+
+
+def display_help():
+	""" Help output printer """
+	print("USAGE")
+	print("\t./203hotline [n k | d]")
+	print("\nDESCRIPTION")
+	print("\tn\tn value for the computation of the binomial n and k")
+	print("\tk\tk value for the computation of the binomial n and k")
+	print("\td\taverage duration of calls (in seconds)")
+
+
+
+def main():
+	argc = len(argv)
+	if argc == 2 and argv[1] == "-h":
+		display_help()
+		return 0
+	elif argc == 2:
+		val = None
+		try:
+			val = int(argv[1])
+		except:
+			pass
+		if val is None:
+			eprint("Invalid parameter value")
+		binomial(val)
+		print()
+		poisson(val)
+	elif argc == 3:
+		try:
+			n = int(argv[1])
+			r = int(argv[2])
+		except:
+			eprint("Invalid parameter value")
+		get = nCr(n, r)
+		print("{r}-combination of a {n} set:".format(n=n, r=r))
+		print(int(get))
+	else:
+		eprint("Invalid number of parameter")
+	return 0
+
+
+if __name__ == '__main__':
+	main()

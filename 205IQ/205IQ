@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+# coding=UTF-8
+
+from sys import argv
+from core import calc_between, calc_data, eprint
+
+import os
+
+
+def display_help():
+    """ Help output printer """
+    print("""USAGE
+        ./205IQ μ σ [IQ1] [IQ2]
+
+DESCRIPTION
+        μ       predetermined mean
+        σ       predetermined standard deviation
+        IQ1     minimum IQ
+        IQ2     maximum IQ""")
+
+
+def main():
+    argc = len(argv)
+    if argc == 2:
+        if argv[1] == "-h" or argv[1] == "--help":
+            display_help()
+            return 0
+    if argc == 3:
+            try:
+                u = int(argv[1])
+                o = int(argv[2])
+            except:
+                eprint("Error: You must use numbers")
+                exit(84)
+            if u <= 0 or o <= 0:
+                eprint("Error: You must use positive numbers")
+                exit(84)
+            if u > 200:
+                eprint("Error: First parameter must be less or equal than 200")
+                exit(84)
+            calc_data(u, o)
+    elif argc in (4, 5):
+        q2 = None
+        try:
+            u = int(argv[1])
+            o = int(argv[2])
+            q1 = int(argv[3])
+            if argc == 5:
+                q2 = int(argv[4])
+        except:
+                eprint("Error: You must use numbers")
+                exit(84)
+        if u <= 0 or o <= 0 or q1 <= 0:
+                eprint("Error: You must use positive numbers")
+                exit(84)
+        if u > 200:
+            eprint("Error: First parameter must be less or equal than 200")
+            exit(84)
+        if argc == 5 and q2 <= 0:
+                eprint("Error: You must use positive numbers")
+                exit(84)
+        calc_between(u, o, q1, q2)
+    else:
+        eprint("Error: Bad number of arguments")
+        exit(84)
+    return 0
+
+
+if __name__ == '__main__':
+    main()
